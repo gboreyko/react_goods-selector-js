@@ -16,8 +16,9 @@ export const goods = [
   'Garlic',
 ];
 
-const GoodButton = ({ dataCy, className, sign, onClick }) => (
+const GoodButton = ({ id, dataCy, className, onClick, sign }) => (
   <button
+    id={id}
     data-cy={dataCy}
     type="button"
     className={className}
@@ -31,11 +32,7 @@ export const App = () => {
   const [selectedGood, setSelectedGood] = useState('Jam');
 
   const onClickAddButton = event => {
-    const addButton = event.currentTarget;
-    const clickedElementGood = addButton.parentElement.nextElementSibling;
-    const clickedGood = clickedElementGood.textContent;
-
-    setSelectedGood(clickedGood);
+    setSelectedGood(event.currentTarget.id);
   };
 
   const onClickRemoveButton = () => setSelectedGood('');
@@ -70,6 +67,7 @@ export const App = () => {
                 <td>
                   {isGoodSelected ? (
                     <GoodButton
+                      id={good}
                       dataCy="RemoveButton"
                       className="button is-info"
                       onClick={onClickRemoveButton}
@@ -77,6 +75,7 @@ export const App = () => {
                     />
                   ) : (
                     <GoodButton
+                      id={good}
                       dataCy="AddButton"
                       className="button"
                       onClick={onClickAddButton}
